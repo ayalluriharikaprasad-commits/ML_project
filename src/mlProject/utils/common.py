@@ -1,15 +1,17 @@
 import json
 from pathlib import Path
-from typing import Any
+from typing import Any, Union
 
 import joblib
 import yaml
 from box import ConfigBox
 from box.exceptions import BoxValueError
+from typeguard import typechecked
 
 from mlProject.logging import logger
 
 
+@typechecked
 def read_yaml(path_to_yaml: Path) -> ConfigBox:
     """Read a YAML file and return its content as a ConfigBox."""
     try:
@@ -25,7 +27,8 @@ def read_yaml(path_to_yaml: Path) -> ConfigBox:
         raise e
 
 
-def create_directories(path_to_directories: list, verbose: bool = True):
+@typechecked
+def create_directories(path_to_directories: list[Union[str, Path]], verbose: bool = True):
     """Create directories from a list of paths."""
     for path in path_to_directories:
         Path(path).mkdir(parents=True, exist_ok=True)
@@ -33,6 +36,7 @@ def create_directories(path_to_directories: list, verbose: bool = True):
             logger.info(f"Created directory at: {path}")
 
 
+@typechecked
 def save_json(path: Path, data: dict):
     """Save dictionary data into a JSON file."""
     with open(path, "w") as f:
@@ -41,6 +45,7 @@ def save_json(path: Path, data: dict):
     logger.info(f"JSON file saved at: {path}")
 
 
+@typechecked
 def load_json(path: Path) -> ConfigBox:
     """Load JSON file data and return it as a ConfigBox."""
     with open(path) as f:
@@ -50,12 +55,14 @@ def load_json(path: Path) -> ConfigBox:
     return ConfigBox(content)
 
 
+@typechecked
 def save_bin(data: Any, path: Path):
     """Save Python object as a binary file."""
     joblib.dump(value=data, filename=path)
     logger.info(f"Binary file saved at: {path}")
 
 
+@typechecked
 def load_bin(path: Path) -> Any:
     """Load data from a binary file."""
     data = joblib.load(path)
@@ -63,6 +70,7 @@ def load_bin(path: Path) -> Any:
     return data
 
 
+@typechecked
 def get_size(path: Path) -> str:
     """Return file size in kilobytes."""
     size_in_kb = round(path.stat().st_size / 1024)
