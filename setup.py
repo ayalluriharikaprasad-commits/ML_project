@@ -6,9 +6,9 @@ with open("README.md", "r", encoding="utf-8") as fh:
 __version__ = "0.0.0"
 
 REPO_NAME = "ML_project"
-AUTHOR_USER_NAME = "your-username"
-SRC_REPO = "src"
-AUTHOR_EMAIL = "your-email@example.com"
+AUTHOR_USER_NAME = "ayalluriharikaprasad-commits"
+SRC_REPO = "mlProject"
+AUTHOR_EMAIL = "ayalluriharikaprasad@gmail.com"
 
 setuptools.setup(
     name=SRC_REPO,
